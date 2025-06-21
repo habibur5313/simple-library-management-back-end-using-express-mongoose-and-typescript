@@ -1,12 +1,12 @@
 import express, { Request, Response } from "express";
-import { book } from "../models/books.models";
+import { Book } from "../models/books.models";
 
 export const booksRoutes = express.Router();
 
 // crate post api
 booksRoutes.post("/", async (req: Request, res: Response) => {
   const body = req.body;
-  const data = await book.create(body);
+  const data = await Book.create(body);
 
   res.status(201).json({
     success: true,
@@ -22,8 +22,6 @@ booksRoutes.get("/", async (req: Request, res: Response) => {
   const sortOrder = req.query?.sort === "desc" ? -1 : 1;
   const limit = parseInt(req.query?.limit as string) || 10;
 
-  console.log(filter, sortBy, sortOrder, limit);
-
   const filterQuery: any = {};
   if (filter) {
     filterQuery.genre = filter;
@@ -32,7 +30,7 @@ booksRoutes.get("/", async (req: Request, res: Response) => {
   const sortQuery: any = {};
   sortQuery[sortBy] = sortOrder;
 
-    const data = await book.find(filterQuery).sort(sortQuery).limit(limit);
+    const data = await Book.find(filterQuery).sort(sortQuery).limit(limit);
 
     res.status(201).json({
       success: true,
@@ -45,7 +43,7 @@ booksRoutes.get("/", async (req: Request, res: Response) => {
 // get single book api
 booksRoutes.get("/:bookId", async (req: Request, res: Response) => {
   const bookId = req.params.bookId;
-  const data = await book.findById(bookId);
+  const data = await Book.findById(bookId);
 
   res.status(201).json({
     success: true,
@@ -58,7 +56,7 @@ booksRoutes.get("/:bookId", async (req: Request, res: Response) => {
 booksRoutes.put("/:bookId", async (req: Request, res: Response) => {
   const bookId = req.params.bookId;
   const updatedBody = req.body;
-  const data = await book.findByIdAndUpdate(bookId, updatedBody, { new: true });
+  const data = await Book.findByIdAndUpdate(bookId, updatedBody, { new: true });
 
   res.status(201).json({
     success: true,
@@ -70,7 +68,7 @@ booksRoutes.put("/:bookId", async (req: Request, res: Response) => {
 // delete book api
 booksRoutes.delete("/:bookId", async (req: Request, res: Response) => {
   const bookId = req.params.bookId;
-  const data = await book.findByIdAndDelete(bookId);
+  const data = await Book.deleteMany()
 
   res.status(201).json({
     success: true,

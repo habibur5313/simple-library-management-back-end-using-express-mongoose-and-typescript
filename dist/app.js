@@ -5,9 +5,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const books_controllers_1 = require("./app/controllers/books.controllers");
+const borrow_conrtoller_1 = require("./app/controllers/borrow.conrtoller");
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use("/api/books", books_controllers_1.booksRoutes);
+app.use("/api/borrow", borrow_conrtoller_1.borrowsRoutes);
 app.get('/', (req, res) => {
     res.send('Welcome to Library Management');
 });
