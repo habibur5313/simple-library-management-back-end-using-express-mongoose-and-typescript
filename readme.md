@@ -1,12 +1,8 @@
----
-
 # 📚 Simple Library Management API
 
 **An Express + TypeScript + MongoDB (Mongoose)** application for managing books, tracking borrows with business rules, and summarized analytics.
 
 Live API Domain: [https://simplelibrarymanagement.vercel.app](https://simplelibrarymanagement.vercel.app)
-
----
 
 ## 📌 Table of Contents
 
