@@ -1,16 +1,17 @@
 // routes/borrows.controllers.ts
 import express, { Request, Response } from "express";
-import mongoose from "mongoose";
+import mongoose, { isValidObjectId } from "mongoose";
 import { Book } from "../models/books.models";
 import { Borrow } from "../models/borrow.models";
 
 export const borrowsRoutes = express.Router();
 
+// borrow book post api
 borrowsRoutes.post("/", async (req: Request, res: Response) => {
   try {
     const { book: bookId, quantity, dueDate } = req.body;
 
-    if (!mongoose.isValidObjectId(bookId)) {
+    if (!isValidObjectId(bookId)) {
       res.status(400).json({
             success: false,
             message: "Invalid book ID",

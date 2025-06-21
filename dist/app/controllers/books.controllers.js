@@ -70,7 +70,7 @@ exports.booksRoutes.put("/:bookId", (req, res) => __awaiter(void 0, void 0, void
 // delete book api
 exports.booksRoutes.delete("/:bookId", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const bookId = req.params.bookId;
-    const data = yield books_models_1.Book.deleteMany();
+    const data = yield books_models_1.Book.findByIdAndDelete(bookId);
     res.status(201).json({
         success: true,
         message: "book deleted successfully",
