@@ -1,5 +1,3 @@
----
-
 # 📚 Simple Library Management API
 
 **An Express + TypeScript + MongoDB (Mongoose)** application for managing books, tracking borrows with business rules, and summarized analytics.
@@ -198,4 +196,3 @@ This project is open-sourced under the **MIT License**.
 
 ---
 
-Let me know if you’d like to include a visual (screenshot or Postman collection file), or embed the Swagger/OpenAPI docs if you have one.
