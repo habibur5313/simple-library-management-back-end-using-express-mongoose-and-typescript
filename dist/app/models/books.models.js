@@ -12,11 +12,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Book = void 0;
 const mongoose_1 = require("mongoose");
 const bookSchema = new mongoose_1.Schema({
-    title: { type: String, required: true },
-    author: { type: String, required: true },
+    title: { type: String, required: [true, 'title is required'] },
+    author: { type: String, required: [true, 'author is required'] },
     genre: {
         type: String,
-        required: true,
+        required: [true, 'genre is required'],
+        uppercase: true,
         enum: [
             "FICTION",
             "NON_FICTION",
@@ -26,9 +27,9 @@ const bookSchema = new mongoose_1.Schema({
             "FANTASY",
         ],
     },
-    isbn: { type: String, required: true, unique: true },
+    isbn: { type: String, required: [true, 'isbn is required'], unique: [true, 'isbn must be unique'] },
     description: { type: String, trim: true, default: "" },
-    copies: { type: Number, required: true, min: 0 },
+    copies: { type: Number, required: true, min: [0, 'Must be positive, got {VALUE}'] },
     available: { type: Boolean, default: true },
 }, { versionKey: false, timestamps: true });
 bookSchema.static("borrowCopies", function (bookId, qty) {

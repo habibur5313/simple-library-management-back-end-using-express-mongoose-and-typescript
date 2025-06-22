@@ -21,14 +21,14 @@ function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             // connect server to mongoose using mongoDB
-            yield mongoose_1.default.connect(`${process.env.DB_mongodbURI}`);
+            yield mongoose_1.default.connect(`mongodb+srv://${process.env.DB_User}:${process.env.DB_Pass}@cluster0.8yejb.mongodb.net/libraryManagementDB?retryWrites=true&w=majority&appName=Cluster0`);
             console.log("Connected to MongoDB Using Mongoose!!");
             server = app_1.default.listen(PORT, () => {
                 console.log(`App is listening on port ${PORT}`);
             });
         }
         catch (error) {
-            console.log(error);
+            return { message: error };
         }
     });
 }
