@@ -46,7 +46,8 @@ cd simple-library-management-using-express-mongoose-and-typescript
 npm install
 
 # .env setup
-MONGODB_URI=your_mongodb_url
+DB_User=your_mongodb_UserName
+DB_Pass=your_mongodb_Password
 PORT=5000
 
 npm run dev      # for development
