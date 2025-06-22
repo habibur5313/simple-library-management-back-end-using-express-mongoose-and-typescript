@@ -4,8 +4,6 @@
 
 Live API Domain: [https://simplelibrarymanagement.vercel.app](https://simplelibrarymanagement.vercel.app)
 
----
-
 ## 📌 Table of Contents
 
 * [🚀 Features](#-features)

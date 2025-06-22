@@ -60,7 +60,7 @@ exports.borrowsRoutes.post("/", (req, res) => __awaiter(void 0, void 0, void 0, 
             res.status(400).json({
                 success: false,
                 message: "Invalid book ID",
-                error: "Book ID is not valid"
+                error: "Book ID is not valid",
             });
             return;
         }
@@ -78,6 +78,42 @@ exports.borrowsRoutes.post("/", (req, res) => __awaiter(void 0, void 0, void 0, 
             success: false,
             message: "Failed to borrow book",
             error: error.message || error,
+        });
+    }
+}));
+// borrow book get api
+exports.borrowsRoutes.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const data = yield borrow_models_1.Borrow.aggregate([
+            { $group: { _id: "$book", totalQuantity: { $sum: "$quantity" } } },
+            {
+                $lookup: {
+                    from: "books",
+                    localField: "_id",
+                    foreignField: "_id",
+                    as: "bookDetails",
+                },
+            },
+            { $unwind: "$bookDetails" },
+            {
+                $project: {
+                    _id: 0,
+                    totalQuantity: 1,
+                    book: { title: "$bookDetails.title", isbn: "$bookDetails.isbn" },
+                },
+            },
+        ]);
+        res.status(201).json({
+            success: true,
+            message: "Borrowed books summary retrieved successfully",
+            data,
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to retrieve borrowed books summary",
+            error,
         });
     }
 }));
