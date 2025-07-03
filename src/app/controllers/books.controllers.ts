@@ -20,7 +20,7 @@ booksRoutes.get("/", async (req: Request, res: Response) => {
   const filter = req.query?.filter as string; 
   const sortBy = req.query?.sortBy as string || "createdAt";
   const sortOrder = req.query?.sort === "desc" ? -1 : 1;
-  const limit = parseInt(req.query?.limit as string) || 10;
+  const limit = parseInt(req.query?.limit as string);
 
   const filterQuery: any = {};
   if (filter) {

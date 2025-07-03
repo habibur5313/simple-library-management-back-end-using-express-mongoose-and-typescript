@@ -32,7 +32,7 @@ exports.booksRoutes.get("/", (req, res) => __awaiter(void 0, void 0, void 0, fun
     const filter = (_a = req.query) === null || _a === void 0 ? void 0 : _a.filter;
     const sortBy = ((_b = req.query) === null || _b === void 0 ? void 0 : _b.sortBy) || "createdAt";
     const sortOrder = ((_c = req.query) === null || _c === void 0 ? void 0 : _c.sort) === "desc" ? -1 : 1;
-    const limit = parseInt((_d = req.query) === null || _d === void 0 ? void 0 : _d.limit) || 10;
+    const limit = parseInt((_d = req.query) === null || _d === void 0 ? void 0 : _d.limit);
     const filterQuery = {};
     if (filter) {
         filterQuery.genre = filter;
