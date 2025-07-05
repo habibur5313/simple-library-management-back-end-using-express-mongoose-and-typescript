@@ -59,7 +59,7 @@ exports.booksRoutes.get("/:bookId", (req, res) => __awaiter(void 0, void 0, void
 // update book api
 exports.booksRoutes.put("/:bookId", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const bookId = req.params.bookId;
-    const updatedBody = req.body;
+    const updatedBody = req.body.data;
     const data = yield books_models_1.Book.findByIdAndUpdate(bookId, updatedBody, { new: true });
     res.status(201).json({
         success: true,

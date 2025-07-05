@@ -55,7 +55,7 @@ booksRoutes.get("/:bookId", async (req: Request, res: Response) => {
 // update book api
 booksRoutes.put("/:bookId", async (req: Request, res: Response) => {
   const bookId = req.params.bookId;
-  const updatedBody = req.body;
+  const updatedBody = req.body.data;
   const data = await Book.findByIdAndUpdate(bookId, updatedBody, { new: true });
 
   res.status(201).json({
