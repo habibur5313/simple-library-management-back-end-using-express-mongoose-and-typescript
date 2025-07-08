@@ -1,11 +1,30 @@
 import express, { Request, Response } from "express";
 import { Book } from "../models/books.models";
+import z from "zod";
 
 export const booksRoutes = express.Router();
 
+const createBookZodSchema = z.object({
+  title: z.string(),
+  author: z.string(),
+  genre: z.enum([
+        "FICTION",
+        "NON_FICTION",
+        "SCIENCE",
+        "HISTORY",
+        "BIOGRAPHY",
+        "FANTASY",
+      ]),
+  isbn: z.string(),
+  description: z.string().optional(),
+  copies: z.number(),
+  available: z.boolean(),
+})
+
 // crate post api
 booksRoutes.post("/", async (req: Request, res: Response) => {
-  const body = req.body;
+  try{
+    const body = await createBookZodSchema.parseAsync(req.body)
   const data = await Book.create(body);
 
   res.status(201).json({
@@ -13,6 +32,13 @@ booksRoutes.post("/", async (req: Request, res: Response) => {
     message: "book created successfully",
     data,
   });
+  } catch(error) {
+    res.status(400).json({
+    success: false,
+    message: 'error',
+    error,
+  });
+  }
 });
 
 // get all books api
