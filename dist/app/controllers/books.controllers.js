@@ -15,16 +15,42 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.booksRoutes = void 0;
 const express_1 = __importDefault(require("express"));
 const books_models_1 = require("../models/books.models");
+const zod_1 = __importDefault(require("zod"));
 exports.booksRoutes = express_1.default.Router();
+const createBookZodSchema = zod_1.default.object({
+    title: zod_1.default.string(),
+    author: zod_1.default.string(),
+    genre: zod_1.default.enum([
+        "FICTION",
+        "NON_FICTION",
+        "SCIENCE",
+        "HISTORY",
+        "BIOGRAPHY",
+        "FANTASY",
+    ]),
+    isbn: zod_1.default.string(),
+    description: zod_1.default.string().optional(),
+    copies: zod_1.default.number(),
+    available: zod_1.default.boolean(),
+});
 // crate post api
 exports.booksRoutes.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const body = req.body;
-    const data = yield books_models_1.Book.create(body);
-    res.status(201).json({
-        success: true,
-        message: "book created successfully",
-        data,
-    });
+    try {
+        const body = yield createBookZodSchema.parseAsync(req.body);
+        const data = yield books_models_1.Book.create(body);
+        res.status(201).json({
+            success: true,
+            message: "book created successfully",
+            data,
+        });
+    }
+    catch (error) {
+        res.status(400).json({
+            success: false,
+            message: 'error',
+            error,
+        });
+    }
 }));
 // get all books api
 exports.booksRoutes.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
